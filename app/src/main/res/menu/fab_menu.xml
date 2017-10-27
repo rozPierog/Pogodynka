@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Dzisiaj"
+        android:icon="@mipmap/ic_launcher_foreground"/>
+    <item
+        android:title="14 dni"
+        android:icon="@mipmap/ic_launcher_foreground"/>
+    <item
+        android:title="30 dni"
+        android:icon="@mipmap/ic_launcher_foreground"/>
+
+</menu>

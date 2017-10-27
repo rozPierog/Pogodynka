@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_weather"
+        icon="@drawable/ic_weather"
+        title="@string/weather_tab"
+        barColorWhenSelected="@color/colorPrimary"/>
+    <tab
+        id="@+id/tab_search"
+        icon="@drawable/ic_search"
+        title="@string/search_tab"
+        barColorWhenSelected="@color/colorAccent"/>
+</tabs>
