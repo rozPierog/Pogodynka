@@ -1,14 +1,13 @@
 package com.example.leon.pogodynka;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewAnimationUtils;
 import android.widget.TextView;
 
+import com.example.leon.pogodynka.feature.forecast.WeatherFragment;
+import com.example.leon.pogodynka.feature.search.SearchFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 

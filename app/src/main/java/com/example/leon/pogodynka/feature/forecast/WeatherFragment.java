@@ -1,4 +1,4 @@
-package com.example.leon.pogodynka;
+package com.example.leon.pogodynka.feature.forecast;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,11 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.leon.pogodynka.R;
+import com.example.leon.pogodynka.api.ApiClient;
+import com.example.leon.pogodynka.api.ServerResponseListener;
+import com.example.leon.pogodynka.api.WSError;
+import com.example.leon.pogodynka.api.models.current.ApiCurrentData;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +40,9 @@ public class WeatherFragment extends Fragment {
 
     @BindView(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
+
+    ItemAdapter<WeatherItem> weatherItemAdapter;
+    FastAdapter fastAdapter;
 
 
     public WeatherFragment() {
@@ -57,15 +68,10 @@ public class WeatherFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        FastItemAdapter<WeatherItem> fastItemAdapter = new FastItemAdapter<>();
-        recyclerView.setAdapter(fastItemAdapter);
-        ArrayList<WeatherItem> weatherItems = new ArrayList<>();
-        for(int i = 0; i < 14; i++) {
-            weatherItems.add(new WeatherItem(String.valueOf(i+1)));
-        }
-        fastItemAdapter.add(weatherItems);
-        fastItemAdapter.withSelectable(true);
+        weatherItemAdapter = new ItemAdapter<>();
+        fastAdapter = FastAdapter.with(weatherItemAdapter);
+        recyclerView.setAdapter(fastAdapter);
+        fastAdapter.withSelectable(true);
 
         fabRevealMenu.bindAncherView(floatingActionButton);
         fabRevealMenu.setOnFABMenuSelectedListener(new OnFABMenuSelectedListener() {
@@ -84,6 +90,23 @@ public class WeatherFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ApiClient.getInstance().getCurrent("koszalin", new ServerResponseListener<ApiCurrentData>() {
+            @Override
+            public void onSuccess(ApiCurrentData response) {
+                showCurrent(response);
+            }
+
+            @Override
+            public void onError(WSError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void showCurrent(ApiCurrentData data) {
+        weatherItemAdapter.clear();
+        weatherItemAdapter.add(new WeatherItem(data));
     }
 
     @Override
