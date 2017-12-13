@@ -1,51 +1,50 @@
 package com.example.leon.pogodynka.database;
 
-import javax.annotation.Generated;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
-@Generated("com.robohorse.robopojogenerator")
-public class City{
+/**
+ * Created by Leon on 13-Dec-17.
+ */
+@Entity(tableName = "City")
+public class City {
 
-	@SerializedName("country")
-	private String country;
+    @PrimaryKey
+    @SerializedName("id")
+    private int id;
 
-	@SerializedName("name")
-	private String name;
+    @ColumnInfo(name = "country")
+    @SerializedName("country")
+    private String country;
 
-	@SerializedName("id")
-	private int id;
+    @ColumnInfo(name = "name")
+    @SerializedName("name")
+    private String name;
 
-	public void setCountry(String country){
-		this.country = country;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getCountry(){
-		return country;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getId(){
-		return id;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"City{" + 
-			"country = '" + country + '\'' + 
-			",name = '" + name + '\'' + 
-			",id = '" + id + '\'' + 
-			"}";
-		}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

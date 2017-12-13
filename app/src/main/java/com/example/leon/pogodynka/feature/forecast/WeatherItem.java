@@ -9,6 +9,7 @@ import com.example.leon.pogodynka.PogodynkaApp;
 import com.example.leon.pogodynka.R;
 import com.example.leon.pogodynka.api.models.current.ApiCurrentData;
 import com.example.leon.pogodynka.api.models.five_day.ApiDaily;
+import com.example.leon.pogodynka.api.models.five_day.ListItem;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ public class WeatherItem extends AbstractItem<WeatherItem, WeatherItem.ViewHolde
 
     String temp;
     ApiCurrentData apiCurrentData;
-    ApiDaily apiDaily;
+    ListItem apiDaily;
 
     public WeatherItem() {
     }
@@ -40,7 +41,7 @@ public class WeatherItem extends AbstractItem<WeatherItem, WeatherItem.ViewHolde
         apiCurrentData = data;
     }
 
-    public WeatherItem(ApiDaily daily) {
+    public WeatherItem(ListItem daily) {
         apiDaily = daily;
     }
 
@@ -61,12 +62,20 @@ public class WeatherItem extends AbstractItem<WeatherItem, WeatherItem.ViewHolde
         //call super so the selection is already handled for you
         super.bindView(viewHolder, payloads);
 
-        if(apiCurrentData != null) {
+        if(apiCurrentData != null && apiDaily == null) {
             viewHolder.date.setText(getDate(apiCurrentData.getDt()));
             viewHolder.temp.setText(String.valueOf(apiCurrentData.getMain().getTemp()) + "°C");
             viewHolder.discription.setText(apiCurrentData.getWeather().get(0).getDescription());
-            Picasso.with(PogodynkaApp.getPogodynkaApp())
+            Picasso.with(PogodynkaApp.get())
                     .load("http://openweathermap.org/img/w/" + apiCurrentData.getWeather().get(0).getIcon() + ".png")
+                    .into(viewHolder.weatherImage);
+        }
+        if(apiDaily != null && apiCurrentData == null) {
+            viewHolder.date.setText(getDate(apiDaily.getDt()));
+            viewHolder.temp.setText(String.valueOf(apiDaily.getMain().getTemp()) + "°C");
+            viewHolder.discription.setText(apiDaily.getWeather().get(0).getDescription());
+            Picasso.with(PogodynkaApp.get())
+                    .load("http://openweathermap.org/img/w/" + apiDaily.getWeather().get(0).getIcon() + ".png")
                     .into(viewHolder.weatherImage);
         }
     }

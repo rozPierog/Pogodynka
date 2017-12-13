@@ -1,5 +1,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,47 +9,75 @@
     <!-- TODO: Update blank fragment layout -->
 
 
+    <TextView
+        android:id="@+id/fragment_weather_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/weatherRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_weather_city"
         app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_dashboard"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.hlab.fabrevealmenu.view.FABRevealMenu
-        android:id="@+id/fabMenu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        app:animateItems="true"
+        android:layout_height="142dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912"
-        app:menuBackgroundColor="@color/accent"
-        app:menuDirection="left"
-        app:menuRes="@menu/fab_menu"
-        app:menuTitleTextColor="@color/colorWhite"
-        app:showOverlay="true"
-        app:showTitle="true" />
+        fab:menu_icon="@drawable/ic_dashboard"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_colorRipple="@color/bb_inActiveBottomBarItemColor">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_looks_one_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/weatherRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:fab_label="obecna"
+            fab:fab_colorNormal="@color/primary"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="@color/bb_inActiveBottomBarItemColor" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_looks_5_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/weatherRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:fab_label="5 dni"
+            fab:fab_colorNormal="@color/primary"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="@color/bb_inActiveBottomBarItemColor" />
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.constraint.ConstraintLayout>
